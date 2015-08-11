@@ -4,9 +4,9 @@
     <artifactId>hadoop-admin-tools</artifactId>
     <scm>
         <connection>scm:git:git@hadoop-admin-tools:trustedanalytics/hadoop-admin-tools.git</connection>
-        <tag>org.trustedanalytics.hadoop-admin-tools-0.4.1</tag>
+        <tag>HEAD</tag>
     </scm>
-    <version>0.4.1</version>
+    <version>0.4.2-SNAPSHOT</version>
 
     <parent>
         <groupId>org.trustedanalytics</groupId>
