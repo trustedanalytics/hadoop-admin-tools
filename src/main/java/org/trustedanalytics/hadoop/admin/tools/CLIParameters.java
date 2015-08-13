@@ -1,0 +1,44 @@
+/**
+ * Copyright (c) 2015 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.trustedanalytics.hadoop.admin.tools;
+
+import com.beust.jcommander.Parameter;
+
+class CLIParameters {
+
+  @Parameter(names = {"-configUrl", "-cu"},
+      description = "Location of configuration hadoop client archive (zip). It can be local (file://path), or remote (http(s)://host/path).",
+      validateWith = URLValidator.class)
+  private String clientConfigUrl;
+
+  @Parameter(names = {"-help", "--help", "-h", "?"}, description = "display usage help", help = true)
+  private boolean help;
+
+  @Parameter(names = {"-v", "-verbose"})
+  private boolean verbose;
+
+  public String getClientConfigUrl() {
+    return clientConfigUrl;
+  }
+
+  public boolean isHelp() {
+    return help;
+  }
+
+  public boolean isVerbose() {
+    return verbose;
+  }
+}
