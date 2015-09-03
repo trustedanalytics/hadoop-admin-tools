@@ -16,9 +16,9 @@ Examples:
 
 Getting hadoop client configuration directly from CDH manager.
 First you have to get `client_config_url` from CDH. On CDH manager homepage click `View Client Configuration URLs`
-![image 1](https://github.com/trustedanalytics/hadoop-admin-tools/blob/readme_update/wikiImages/CDHconf1.png)
+![image 1](https://github.com/trustedanalytics/hadoop-admin-tools/blob/master/wikiImages/CDHconf1.png)
 Now copy HDFS config url
-![image 2](https://github.com/trustedanalytics/hadoop-admin-tools/blob/readme_update/wikiImages/CDHconf2.png)
+![image 2](https://github.com/trustedanalytics/hadoop-admin-tools/blob/master/wikiImages/CDHconf2.png)
 ```
 ./import_hadoop_conf.sh -cu http://<cloudera_manager_host_name>:7180/<hdfs_config_url>
 ```
