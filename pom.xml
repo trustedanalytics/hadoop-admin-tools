@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>hadoop-admin-tools</artifactId>
-    <version>0.4.3</version>
+    <version>0.4.4</version>
 
     <parent>
         <groupId>org.trustedanalytics</groupId>
@@ -14,6 +14,10 @@
         <tools-class>org.trustedanalytics.hadoop.admin.tools.HadoopClientParamsImporter</tools-class>
         <script-importer-name>import_hadoop_conf.sh</script-importer-name>
         <powermock.version>1.6.2</powermock.version>
+        <jacoco-measurement-instructions>0.6472</jacoco-measurement-instructions>
+        <jacoco-measurement-branches>0.4230</jacoco-measurement-branches>
+        <jacoco-measurement-lines>0.7042</jacoco-measurement-lines>
+        <jacoco-measurement-classes>1.0000</jacoco-measurement-classes>
     </properties>
 
     <build>
@@ -91,30 +95,6 @@
                 <version>2.17</version>
                 <configuration>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.4.201502262128</version>
-                <configuration>
-                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>jacoco-initialize</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 			<plugin>
             <groupId>com.mycila</groupId>
