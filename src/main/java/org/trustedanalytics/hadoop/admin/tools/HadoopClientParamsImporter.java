@@ -20,15 +20,18 @@ import com.beust.jcommander.ParameterException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.trustedanalytics.hadoop.config.ConfigConstants;
-
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.trustedanalytics.hadoop.config.ConfigConstants;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -40,19 +43,13 @@ import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 public final class HadoopClientParamsImporter {
 
   private final static Logger LOGGER = LogManager.getLogger(HadoopClientParamsImporter.class);
 
-  private static String CONF_PROPERTY_XPATH ="/configuration/property";
+  private static String CONF_PROPERTY_XPATH = "/configuration/property";
 
-  private HadoopClientParamsImporter() {
-  }
+  private HadoopClientParamsImporter() {}
 
   public static void main(String[] args) {
     CLIParameters params = new CLIParameters();
@@ -61,7 +58,7 @@ public final class HadoopClientParamsImporter {
         performAction(params);
       }
     } catch (IOException | XPathExpressionException | RuntimeException e) {
-      if(params.isVerbose()) {
+      if (params.isVerbose()) {
         LOGGER.error("Ops!", e);
       } else {
         LOGGER.info(e);
@@ -104,15 +101,13 @@ public final class HadoopClientParamsImporter {
     return res;
   }
 
-  static Optional<Map<String, String>> scanConfigZipArchive(InputStream source)
-      throws IOException, XPathExpressionException {
+  static Optional<Map<String, String>> scanConfigZipArchive(InputStream source) throws IOException,
+      XPathExpressionException {
 
-    InputStream zipInputStream = new ZipInputStream(
-        new BufferedInputStream(source));
+    InputStream zipInputStream = new ZipInputStream(new BufferedInputStream(source));
     ZipEntry zipFileEntry;
     Map<String, String> ret = new HashMap<>();
-    while ((zipFileEntry =
-                ((ZipInputStream) zipInputStream).getNextEntry()) != null) {
+    while ((zipFileEntry = ((ZipInputStream) zipInputStream).getNextEntry()) != null) {
       if (!zipFileEntry.getName().endsWith("-site.xml")) {
         continue;
       }
@@ -135,8 +130,13 @@ public final class HadoopClientParamsImporter {
   static String returnJSON(Map<String, String> props) {
     ObjectMapper objectMapper = new ObjectMapper();
     JsonNode rootNode = objectMapper.createObjectNode();
-    props.forEach((k, v) ->
-                      ((ObjectNode) rootNode).with(ConfigConstants.HADOOP_CONFIG_KEY_VALUE).put(k, v));
-    return rootNode.toString();
+    props.forEach((k, v) -> ((ObjectNode) rootNode).with(ConfigConstants.HADOOP_CONFIG_KEY_VALUE)
+        .put(k, v));
+    return escapeCharacters(rootNode.toString());
+  }
+
+  static String escapeCharacters(String string) {
+    return string.replace(SpecialCharacter.DOLLAR.getCharacter(),
+        SpecialCharacter.DOLLAR.getEscapedCharacter());
   }
 }
