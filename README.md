@@ -1,3 +1,5 @@
+[![Dependency Status](https://www.versioneye.com/user/projects/57236810ba37ce0031fc1dc1/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57236810ba37ce0031fc1dc1)
+
 # hadoop-admin-tools
 Admin tool kit helpful in configuration cloud foundry brokers for hadoop services.
 
