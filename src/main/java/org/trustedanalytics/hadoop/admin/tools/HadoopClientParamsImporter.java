@@ -45,7 +45,7 @@ import java.util.zip.ZipInputStream;
 
 public final class HadoopClientParamsImporter {
 
-  private final static Logger LOGGER = LogManager.getLogger(HadoopClientParamsImporter.class);
+  private static final Logger LOGGER = LogManager.getLogger(HadoopClientParamsImporter.class);
 
   private static String CONF_PROPERTY_XPATH = "/configuration/property";
 
